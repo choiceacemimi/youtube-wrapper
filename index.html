@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Secure Player</title>
+  <style>
+    html,body { height:100%; margin:0; background:#000; display:flex; align-items:center; justify-content:center; }
+    .player-wrap { position:relative; width:100%; max-width:1200px; height:68vh; }
+    iframe { width:100%; height:100%; border:0; display:block; }
+    .overlay { position:absolute; inset:0; z-index:5; background:transparent; }
+    .mask { position:absolute; top:8px; right:8px; width:90px; height:38px; z-index:6;
+      background:rgba(0,0,0,0.35); border-radius:6px; pointer-events:none; }
+  </style>
+  <script>
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('keydown', e => {
+      if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 's')) e.preventDefault();
+      if (e.key === 'F12') e.preventDefault();
+    });
+  </script>
+</head>
+<body>
+  <div class="player-wrap">
+    <iframe
+      src="https://www.youtube.com/embed/5lekQ3QHCxo?rel=0&modestbranding=1&controls=0&disablekb=1&playsinline=1"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+      sandbox="allow-scripts allow-same-origin allow-presentation">
+    </iframe>
+    <div class="overlay" aria-hidden="true"></div>
+    <div class="mask" aria-hidden="true"></div>
+  </div>
+</body>
+</html>
