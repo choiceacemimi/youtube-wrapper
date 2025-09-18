@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Secure Livestream</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .player-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 1200px;
+      height: 68vh;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+    /* Overlay to prevent right-click */
+    .overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      background: transparent;
+      pointer-events: none; /* allow clicks to pass to iframe */
+    }
+    /* Optional watermark */
+    .watermark {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      color: rgba(255,255,255,0.7);
+      font-size: 16px;
+      z-index: 6;
+      pointer-events: none;
+    }
+  </style>
+  <script>
+    // Disable right-click anywhere
+    document.addEventListener('contextmenu', e => e.preventDefault());
+
+    // Disable basic keyboard shortcuts
+    document.addEventListener('keydown', e => {
+      if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 's')) e.preventDefault();
+      if (e.key === 'F12') e.preventDefault();
+    });
+  </script>
+</head>
+<body>
+  <div class="player-wrap">
+    <iframe
+      src="https://www.youtube.com/embed/5lekQ3QHCxo?rel=0&modestbranding=1&controls=1&autoplay=0&disablekb=1&playsinline=1"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+      sandbox="allow-scripts allow-same-origin allow-presentation">
+    </iframe>
+    <div class="overlay"></div>
+    <div class="watermark">Paid Access Only</div>
+  </div>
+</body>
+</html>
