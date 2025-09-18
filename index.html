@@ -25,15 +25,18 @@
       border: 0;
       display: block;
     }
-    /* Overlay to prevent right-click */
-    .overlay {
+    .cover {
       position: absolute;
       inset: 0;
-      z-index: 5;
-      background: transparent;
-      pointer-events: none; /* allow clicks to pass to iframe */
+      z-index: 10;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      color: #fff;
+      font-size: 20px;
     }
-    /* Optional watermark */
     .watermark {
       position: absolute;
       bottom: 10px;
@@ -45,25 +48,28 @@
     }
   </style>
   <script>
-    // Disable right-click anywhere
     document.addEventListener('contextmenu', e => e.preventDefault());
 
-    // Disable basic keyboard shortcuts
-    document.addEventListener('keydown', e => {
-      if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 's')) e.preventDefault();
-      if (e.key === 'F12') e.preventDefault();
-    });
+    function startVideo() {
+      document.querySelector('.cover').style.display = 'none';
+      const iframe = document.querySelector('iframe');
+      iframe.src += "&autoplay=1&mute=0";
+    }
   </script>
 </head>
 <body>
   <div class="player-wrap">
     <iframe
-      src="https://www.youtube.com/embed/5lekQ3QHCxo?rel=0&modestbranding=1&controls=1&autoplay=0&disablekb=1&playsinline=1"
+      src="https://www.youtube.com/embed/5lekQ3QHCxo?rel=0&modestbranding=1&controls=1&disablekb=1&playsinline=1"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowfullscreen
       sandbox="allow-scripts allow-same-origin allow-presentation">
     </iframe>
-    <div class="overlay"></div>
+
+    <!-- Cover overlay -->
+    <div class="cover" onclick="startVideo()">▶ Click to Start Livestream</div>
+
+    <!-- Optional watermark -->
     <div class="watermark">Paid Access Only</div>
   </div>
 </body>
